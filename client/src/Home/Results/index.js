@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -6,10 +7,20 @@ import Review from "./review";
 import Map from "./map";
 
 const Results = ({ resultsData, center }) => {
+  const initialSelectedReview = resultsData.reduce((obj, data) => {
+    obj[data.id] = false;
+    return obj;
+  }, {});
+  const [selectedReview, setSelectedReview] = useState(initialSelectedReview);
+
   return (
     <Grid container spacing={3} marginTop={1}>
       <Grid item xs={12} sm={7} md={9}>
-        <Map markers={resultsData.map((data) => data.coords)} center={center} />
+        <Map
+          reviewData={resultsData}
+          setSelectedReview={setSelectedReview}
+          center={center}
+        />
       </Grid>
       <Grid item xs={12} sm={5} md={3}>
         <Box
@@ -32,7 +43,12 @@ const Results = ({ resultsData, center }) => {
             }}
           >
             {resultsData.map((data, idx) => (
-              <Review reviewData={data} key={idx} />
+              <Review
+                reviewData={data}
+                key={data.id}
+                selectedReview={selectedReview}
+                setSelectedReview={setSelectedReview}
+              />
             ))}
           </Box>
         </Box>

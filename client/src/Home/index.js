@@ -10,6 +10,7 @@ const testCenter = {
 
 const testData = [
   {
+    id: 10001,
     coords: {
       lat: 33.71893894786393,
       lng: -117.78470183068126,

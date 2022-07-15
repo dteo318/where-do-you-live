@@ -8,7 +8,7 @@ const containerStyle = {
   height: "75vh",
 };
 
-const Map = ({ markers, center }) => {
+const Map = ({ reviewData, setSelectedReview, center }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDeH_zNnYAE6tXaWtsYFWBCH2UjTx-RTPw",
@@ -29,6 +29,13 @@ const Map = ({ markers, center }) => {
     // setMap(null);
   }, []);
 
+  const onMarkerClick = (event, dataID) => {
+    setSelectedReview((prevState) => ({
+      ...prevState,
+      [dataID]: true,
+    }));
+  };
+
   return (
     <Box>
       {isLoaded ? (
@@ -40,12 +47,13 @@ const Map = ({ markers, center }) => {
           onUnmount={onUnmount}
         >
           {/* Child components, such as markers, info windows, etc. */}
-          {markers.map((coords, idx) => (
+          {reviewData.map((data, idx) => (
             <Marker
-              position={coords}
+              position={data.coords}
               animation={2}
               label={(idx + 1).toString()}
-              key={idx}
+              key={data.id}
+              onClick={(e) => onMarkerClick(e, data.id)}
             />
           ))}
         </GoogleMap>

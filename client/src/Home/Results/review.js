@@ -5,15 +5,21 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { forwardRef } from "react";
 
-const Review = ({ reviewData }) => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+const Review = ({ reviewData, selectedReview, setSelectedReview }) => {
+  // const [isOpenModal, setIsOpenModal] = useState(false);
 
   const expandReview = () => {
-    setIsOpenModal(true);
+    setSelectedReview((prevState) => ({
+      ...prevState,
+      [reviewData.id]: true,
+    }));
   };
 
   const minimizeReview = () => {
-    setIsOpenModal(false);
+    setSelectedReview((prevState) => ({
+      ...prevState,
+      [reviewData.id]: false,
+    }));
   };
 
   return (
@@ -43,7 +49,7 @@ const Review = ({ reviewData }) => {
 
       {/* OnClick Modal to view more review details */}
       <Modal
-        open={isOpenModal}
+        open={selectedReview[reviewData.id]}
         onClose={minimizeReview}
         sx={{
           display: "flex",

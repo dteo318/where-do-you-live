@@ -5,25 +5,11 @@ import Typography from "@mui/material/Typography";
 import Review from "./review";
 import Map from "./map";
 
-let testData = {
-  location: "Irvine, CA",
-  rating: 9.0,
-  reviewType: "Resident",
-  safety: 9.5,
-  transportation: 5.0,
-  infrastructure: 9.5,
-  entertainment: 6.5,
-  food: 7.5,
-  wouldStay: true,
-  summary:
-    "Great place to raise a family! A safe and clean place to stay. Very organized with multiple villages which are basically planned areas with homes and amenities.",
-};
-
-const Results = () => {
+const Results = ({ resultsData, center }) => {
   return (
     <Grid container spacing={3} marginTop={1}>
       <Grid item xs={12} sm={7} md={9}>
-        <Map />
+        <Map markers={resultsData.map((data) => data.coords)} center={center} />
       </Grid>
       <Grid item xs={12} sm={5} md={3}>
         <Box
@@ -45,14 +31,9 @@ const Results = () => {
               gap: "1rem",
             }}
           >
-            <Review reviewData={testData} />
-            <Review reviewData={testData} />
-            <Review reviewData={testData} />
-            <Review reviewData={testData} />
-            <Review reviewData={testData} />
-            <Review reviewData={testData} />
-            <Review reviewData={testData} />
-            <Review reviewData={testData} />
+            {resultsData.map((data, idx) => (
+              <Review reviewData={data} key={idx} />
+            ))}
           </Box>
         </Box>
       </Grid>

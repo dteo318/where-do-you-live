@@ -8,17 +8,7 @@ const containerStyle = {
   height: "75vh",
 };
 
-const center = {
-  lat: 33.71740163743674,
-  lng: -117.78066009721049,
-};
-
-const testMarker = {
-  lat: 33.71893894786393,
-  lng: -117.78470183068126,
-};
-
-const Map = () => {
+const Map = ({ markers, center }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDeH_zNnYAE6tXaWtsYFWBCH2UjTx-RTPw",
@@ -26,11 +16,14 @@ const Map = () => {
 
   // const [map, setMap] = React.useState(null);
 
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    // setMap(map);
-  }, []);
+  const onLoad = React.useCallback(
+    function callback(map) {
+      const bounds = new window.google.maps.LatLngBounds(center);
+      map.fitBounds(bounds);
+      // setMap(map);
+    },
+    [center]
+  );
 
   const onUnmount = React.useCallback(function callback(map) {
     // setMap(null);
@@ -47,7 +40,14 @@ const Map = () => {
           onUnmount={onUnmount}
         >
           {/* Child components, such as markers, info windows, etc. */}
-          <Marker position={testMarker} animation={2} />
+          {markers.map((coords, idx) => (
+            <Marker
+              position={coords}
+              animation={2}
+              label={(idx + 1).toString()}
+              key={idx}
+            />
+          ))}
         </GoogleMap>
       ) : (
         <></>

@@ -45,6 +45,7 @@ const Results = ({ resultsData, center }) => {
             {resultsData.map((data, idx) => (
               <Review
                 reviewData={data}
+                reviewIdx={idx + 1}
                 key={data.id}
                 selectedReview={selectedReview}
                 setSelectedReview={setSelectedReview}

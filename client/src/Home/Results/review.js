@@ -5,7 +5,12 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { forwardRef } from "react";
 
-const Review = ({ reviewData, selectedReview, setSelectedReview }) => {
+const Review = ({
+  reviewData,
+  reviewIdx,
+  selectedReview,
+  setSelectedReview,
+}) => {
   // const [isOpenModal, setIsOpenModal] = useState(false);
 
   const expandReview = () => {
@@ -32,11 +37,14 @@ const Review = ({ reviewData, selectedReview, setSelectedReview }) => {
           margin: "auto",
           backgroundColor: (theme) =>
             theme.palette.mode === "dark" ? "#1A2027" : "#f2f2f2",
+          border: selectedReview[reviewData.id] ? "2px solid gray" : "none",
         }}
       >
         <Grid container spacing={2}>
           <Grid item xs={10}>
-            <Typography variant="h5">{reviewData.location}</Typography>
+            <Typography variant="h5">
+              {reviewIdx} | {reviewData.location}
+            </Typography>
             <Typography variant="body2" marginTop="0.5rem">
               {reviewData.summary}
             </Typography>

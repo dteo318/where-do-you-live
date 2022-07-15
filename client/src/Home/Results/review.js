@@ -1,9 +1,63 @@
-import { forwardRef } from "react";
-import { Typography } from "@mui/material";
-import Paper from "@mui/material/Paper";
+import { React, useState } from "react";
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { forwardRef } from "react";
 
-const ReviewModal = ({ reviewData }, ref) => {
+const Review = ({ reviewData }) => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const expandReview = () => {
+    setIsOpenModal(true);
+  };
+
+  const minimizeReview = () => {
+    setIsOpenModal(false);
+  };
+
+  return (
+    <div>
+      <Paper
+        onClick={expandReview}
+        sx={{
+          p: 2,
+          minWidth: "100%",
+          margin: "auto",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark" ? "#1A2027" : "#f2f2f2",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={10}>
+            <Typography variant="h5">{reviewData.location}</Typography>
+            <Typography variant="body2" marginTop="0.5rem">
+              {reviewData.summary}
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography variant="h4">{reviewData.rating}</Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+
+      {/* OnClick Modal to view more review details */}
+      <Modal
+        open={isOpenModal}
+        onClose={minimizeReview}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ReviewModal reviewData={reviewData} />
+      </Modal>
+    </div>
+  );
+};
+
+const ReviewModal = forwardRef(({ reviewData }, ref) => {
   return (
     <Paper
       sx={{
@@ -78,6 +132,6 @@ const ReviewModal = ({ reviewData }, ref) => {
       </Grid>
     </Paper>
   );
-};
+});
 
-export default forwardRef(ReviewModal);
+export default Review;

@@ -2,8 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 
-import Navbar from "./components/navbar";
-import Map from "./components/map";
+import Navbar from "../NavBar";
+import Home from "../Home";
 
 // Material UI Fonts
 import "@fontsource/roboto/300.css";
@@ -17,7 +17,7 @@ export default function App() {
       <CssBaseline>
         <Navbar />
         <Routes>
-          <Route path="/map" element={<Map />} />
+          <Route path="" element={<Home />} />
         </Routes>
       </CssBaseline>
     </div>

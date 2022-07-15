@@ -18,7 +18,7 @@ const testMarker = {
   lng: -117.78470183068126,
 };
 
-export default function MapResults() {
+const Map = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDeH_zNnYAE6tXaWtsYFWBCH2UjTx-RTPw",
@@ -54,4 +54,6 @@ export default function MapResults() {
       )}
     </Box>
   );
-}
+};
+
+export default Map;

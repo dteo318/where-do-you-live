@@ -40,6 +40,7 @@ const Home = () => {
         paddingTop: "2rem",
       }}
     >
+      {/* TODO Add support for location search in search bar */}
       <SearchBar />
       <Results resultsData={testData} center={testCenter} />
     </Box>

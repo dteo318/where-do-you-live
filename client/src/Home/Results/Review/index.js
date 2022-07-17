@@ -4,40 +4,40 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { forwardRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleReview } from "./reviewSlice";
 
-const Review = ({
-  reviewData,
-  reviewIdx,
-  selectedReview,
-  setSelectedReview,
-}) => {
-  // const [isOpenModal, setIsOpenModal] = useState(false);
+const Review = ({ reviewData, reviewIdx }) => {
+  const isSelected = useSelector(
+    (state) => state.review.isSelected[reviewData.id]
+  );
+  const dispatch = useDispatch();
 
-  const expandReview = () => {
-    setSelectedReview((prevState) => ({
-      ...prevState,
-      [reviewData.id]: true,
-    }));
-  };
+  // const expandReview = () => {
+  //   setSelectedReview((prevState) => ({
+  //     ...prevState,
+  //     [reviewData.id]: true,
+  //   }));
+  // };
 
-  const minimizeReview = () => {
-    setSelectedReview((prevState) => ({
-      ...prevState,
-      [reviewData.id]: false,
-    }));
-  };
+  // const minimizeReview = () => {
+  //   setSelectedReview((prevState) => ({
+  //     ...prevState,
+  //     [reviewData.id]: false,
+  //   }));
+  // };
 
   return (
     <div>
       <Paper
-        onClick={expandReview}
+        onClick={() => dispatch(toggleReview(reviewData.id))}
         sx={{
           p: 2,
           minWidth: "100%",
           margin: "auto",
           backgroundColor: (theme) =>
             theme.palette.mode === "dark" ? "#1A2027" : "#f2f2f2",
-          border: selectedReview[reviewData.id] ? "2px solid gray" : "none",
+          border: isSelected ? "2px solid gray" : "none",
         }}
       >
         <Grid container spacing={2}>
@@ -57,8 +57,8 @@ const Review = ({
 
       {/* OnClick Modal to view more review details */}
       <Modal
-        open={selectedReview[reviewData.id]}
-        onClose={minimizeReview}
+        open={isSelected}
+        onClose={() => dispatch(toggleReview(reviewData.id))}
         sx={{
           display: "flex",
           alignItems: "center",

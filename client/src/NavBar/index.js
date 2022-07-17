@@ -10,8 +10,6 @@ import Modal from "@mui/material/Modal";
 import AddReviewForm from "./AddReviewForm";
 import { NavLink } from "react-router-dom";
 
-// const pages = ["About", "Map", "Add Review"];
-
 export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

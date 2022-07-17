@@ -7,6 +7,9 @@ import { Controller, useForm } from "react-hook-form";
 import FormInputRating from "./formInputRating";
 import FormInputRadio from "./formInputRadio";
 
+// TODO prefill location input based on location in search bar
+// TODO validate form before submission
+// TODO hook up review adding with redux
 const AddReviewForm = forwardRef((props, ref) => {
   const { handleSubmit, reset, control } = useForm();
   const onSubmit = (data) => {

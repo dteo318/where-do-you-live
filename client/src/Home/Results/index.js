@@ -1,27 +1,17 @@
-import { useState } from "react";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useSelector } from "react-redux";
+import Review from "./Review";
+import Map from "./Map";
 
-import Review from "./review";
-import Map from "./map";
-
-const Results = ({ resultsData, center, isLoaded }) => {
-  const initialSelectedReview = resultsData.reduce((obj, data) => {
-    obj[data.id] = false;
-    return obj;
-  }, {});
-  const [selectedReview, setSelectedReview] = useState(initialSelectedReview);
+const Results = ({ isLoaded }) => {
+  const reviewData = useSelector((state) => state.review.data);
 
   return (
     <Grid container spacing={3} marginTop={1}>
       <Grid item xs={12} sm={7} md={9}>
-        <Map
-          reviewData={resultsData}
-          setSelectedReview={setSelectedReview}
-          center={center}
-          isLoaded={isLoaded}
-        />
+        <Map isLoaded={isLoaded} />
       </Grid>
       <Grid item xs={12} sm={5} md={3}>
         <Box
@@ -43,14 +33,8 @@ const Results = ({ resultsData, center, isLoaded }) => {
               gap: "1rem",
             }}
           >
-            {resultsData.map((data, idx) => (
-              <Review
-                reviewData={data}
-                reviewIdx={idx + 1}
-                key={data.id}
-                selectedReview={selectedReview}
-                setSelectedReview={setSelectedReview}
-              />
+            {reviewData.map((data, idx) => (
+              <Review reviewData={data} reviewIdx={idx + 1} key={data.id} />
             ))}
           </Box>
         </Box>

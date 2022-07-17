@@ -11,7 +11,6 @@ const SearchBar = ({ isLoaded }) => {
   const [autocomplete, setAutocomplete] = React.useState(null);
 
   const onLoad = (autocompleteObj) => {
-    console.log("Autocomplete loaded: ", autocompleteObj);
     setAutocomplete(autocompleteObj);
   };
 

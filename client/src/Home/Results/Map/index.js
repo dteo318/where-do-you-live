@@ -40,12 +40,10 @@ const Map = ({ isLoaded }) => {
     }
   };
 
-  // const onMarkerClick = (event, dataID) => {
-  //   setSelectedReview((prevState) => ({
-  //     ...prevState,
-  //     [dataID]: true,
-  //   }));
-  // };
+  const onMarkerClick = (dataCenter, dataID) => {
+    dispatch(toggleReview(dataID));
+    dispatch(setLocation(dataCenter));
+  };
 
   return (
     <Box>
@@ -58,19 +56,15 @@ const Map = ({ isLoaded }) => {
           onDragEnd={onMapDragged}
         >
           {/* Child components, such as markers, info windows, etc. */}
-          {reviewData.map((data, idx) => {
-            // console.log("Marker", data);
-            // TODO - fix marker not rendering properly
-            return (
-              <Marker
-                position={data.coords}
-                animation={2}
-                label={(idx + 1).toString()}
-                key={data.id}
-                onClick={() => dispatch(toggleReview(data.id))}
-              />
-            );
-          })}
+          {reviewData.map((data, idx) => (
+            <Marker
+              position={data.coords}
+              animation={2}
+              label={(idx + 1).toString()}
+              key={data.id}
+              onClick={() => onMarkerClick(data.coords, data.id)}
+            />
+          ))}
         </GoogleMap>
       ) : (
         <></>

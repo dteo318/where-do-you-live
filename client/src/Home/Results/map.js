@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 import { Marker } from "@react-google-maps/api";
 
 const containerStyle = {
@@ -8,14 +8,7 @@ const containerStyle = {
   height: "75vh",
 };
 
-const Map = ({ reviewData, setSelectedReview, center }) => {
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyDeH_zNnYAE6tXaWtsYFWBCH2UjTx-RTPw",
-  });
-
-  // const [map, setMap] = React.useState(null);
-
+const Map = ({ reviewData, setSelectedReview, center, isLoaded }) => {
   const onLoad = React.useCallback(
     function callback(map) {
       const bounds = new window.google.maps.LatLngBounds(center);

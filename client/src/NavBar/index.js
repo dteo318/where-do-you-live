@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
 import HomeIcon from "@mui/icons-material/Home";
 import AddIcon from "@mui/icons-material/Add";
 import Modal from "@mui/material/Modal";
@@ -26,47 +25,55 @@ export default function Navbar() {
 
   return (
     <div>
-      <AppBar position="static">
-        <Container>
-          <Toolbar
-            disableGutters
-            sx={{ display: "flex", justifyContent: "space-between" }}
+      <AppBar
+        position="static"
+        sx={{
+          paddingLeft: "1.5rem",
+          paddingRight: "1.5rem",
+        }}
+      >
+        <Toolbar
+          disableGutters
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <HomeIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-              <NavLink key={"home"} to="/" style={{ textDecoration: "none" }}>
-                <Typography
-                  variant="h6"
-                  noWrap
-                  sx={{
-                    mr: 2,
-                    display: { xs: "none", md: "flex" },
-                    fontFamily: "roboto",
-                    fontWeight: 700,
-                    letterSpacing: ".2rem",
-                    color: "white",
-                  }}
-                >
-                  Where do you live?
-                </Typography>
-              </NavLink>
-            </Box>
-            <Button
-              variant="contained"
-              color="secondary"
-              startIcon={<AddIcon />}
-              onClick={handleModalOpen}
-            >
-              Add Review
-            </Button>
-          </Toolbar>
-        </Container>
+            <HomeIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <NavLink key={"home"} to="/" style={{ textDecoration: "none" }}>
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "roboto",
+                  fontWeight: 700,
+                  letterSpacing: ".2rem",
+                  color: "white",
+                }}
+              >
+                Where do you live?
+              </Typography>
+            </NavLink>
+          </Box>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<AddIcon />}
+            onClick={handleModalOpen}
+          >
+            Add Review
+          </Button>
+        </Toolbar>
       </AppBar>
       <Modal
         open={isModalOpen}

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Review from "./review";
 import Map from "./map";
 
-const Results = ({ resultsData, center }) => {
+const Results = ({ resultsData, center, isLoaded }) => {
   const initialSelectedReview = resultsData.reduce((obj, data) => {
     obj[data.id] = false;
     return obj;
@@ -20,6 +20,7 @@ const Results = ({ resultsData, center }) => {
           reviewData={resultsData}
           setSelectedReview={setSelectedReview}
           center={center}
+          isLoaded={isLoaded}
         />
       </Grid>
       <Grid item xs={12} sm={5} md={3}>

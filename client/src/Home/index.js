@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import SearchBar from "./SearchBar";
 import Results from "./Results";
+import { useJsApiLoader } from "@react-google-maps/api";
 
 const testCenter = {
   lat: 33.71740163743674,
@@ -30,6 +31,14 @@ const testData = [
 ];
 
 const Home = () => {
+  const [libraries] = useState(["places"]);
+
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyDeH_zNnYAE6tXaWtsYFWBCH2UjTx-RTPw",
+    libraries: libraries,
+  });
+
   return (
     <Box
       spacing={3}
@@ -41,8 +50,8 @@ const Home = () => {
       }}
     >
       {/* TODO Add support for location search in search bar */}
-      <SearchBar />
-      <Results resultsData={testData} center={testCenter} />
+      <SearchBar isLoaded={isLoaded} />
+      <Results resultsData={testData} center={testCenter} isLoaded={isLoaded} />
     </Box>
   );
 };

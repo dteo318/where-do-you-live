@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Button, Typography } from "@mui/material";
+import { Autocomplete } from "@react-google-maps/api";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -31,7 +32,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   paddingLeft: `calc(1em + ${theme.spacing(5)})`,
 }));
 
-export default function SearchBar() {
+export default function SearchBar({ isLoaded }) {
+  const [autocomplete, setAutocomplete] = React.useState(null);
+
+  const onLoad = (autocompleteObj) => {
+    console.log("Autocomplete loaded: ", autocompleteObj);
+    setAutocomplete(autocompleteObj);
+  };
+
+  const onPlaceChanged = () => {
+    const place = autocomplete.getPlace();
+    console.log("Place changed: ", place);
+  };
+
   return (
     <Box
       sx={{
@@ -44,10 +57,19 @@ export default function SearchBar() {
         <SearchIconWrapper>
           <LocationOnIcon />
         </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search for a location…"
-          inputProps={{ "aria-label": "search" }}
-        />
+        {isLoaded ? (
+          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+            <StyledInputBase
+              placeholder="Search for a location…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Autocomplete>
+        ) : (
+          <StyledInputBase
+            placeholder="Search for a location…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        )}
       </Search>
       <Button variant="outlined">
         <Typography variant="button">GO</Typography>

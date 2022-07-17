@@ -4,6 +4,7 @@ import { GoogleMap } from "@react-google-maps/api";
 import { Marker } from "@react-google-maps/api";
 import { toggleReview } from "../Review/reviewSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { setLocation } from "./mapSlice";
 
 const containerStyle = {
   width: "100%",
@@ -14,20 +15,32 @@ const Map = ({ isLoaded }) => {
   const reviewData = useSelector((state) => state.review.data);
   const center = useSelector((state) => state.map.location);
   const dispatch = useDispatch();
+  const [map, setMap] = React.useState(null);
 
-  // TODO Center the map based on clicked review
   const onLoad = React.useCallback(
     function callback(map) {
       const bounds = new window.google.maps.LatLngBounds(center);
       map.fitBounds(bounds);
-      // setMap(map);
+      setMap(map);
     },
     [center]
   );
 
   const onUnmount = React.useCallback(function callback(map) {
-    // setMap(null);
+    setMap(null);
   }, []);
+
+  const onMapDragged = () => {
+    if (map) {
+      const newCenter = map.getCenter();
+      dispatch(
+        setLocation({
+          lat: newCenter.lat(),
+          lng: newCenter.lng(),
+        })
+      );
+    }
+  };
 
   // const onMarkerClick = (event, dataID) => {
   //   setSelectedReview((prevState) => ({
@@ -45,10 +58,11 @@ const Map = ({ isLoaded }) => {
           zoom={15} // TODO - fix zoom issue
           onLoad={onLoad}
           onUnmount={onUnmount}
+          onDragEnd={onMapDragged}
         >
           {/* Child components, such as markers, info windows, etc. */}
           {reviewData.map((data, idx) => {
-            console.log("Marker", data);
+            // console.log("Marker", data);
             // TODO - fix marker not rendering properly
             return (
               <Marker

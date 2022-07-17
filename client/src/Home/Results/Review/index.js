@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import { forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleReview } from "./reviewSlice";
+import { setLocation } from "../Map/mapSlice";
 
 const Review = ({ reviewData, reviewIdx }) => {
   const isSelected = useSelector(
@@ -13,12 +14,12 @@ const Review = ({ reviewData, reviewIdx }) => {
   );
   const dispatch = useDispatch();
 
-  // const expandReview = () => {
-  //   setSelectedReview((prevState) => ({
-  //     ...prevState,
-  //     [reviewData.id]: true,
-  //   }));
-  // };
+  const expandReview = () => {
+    // Toggle review modal
+    dispatch(toggleReview(reviewData.id));
+    // Center the map on the clicked review location/marker
+    dispatch(setLocation(reviewData.coords));
+  };
 
   // const minimizeReview = () => {
   //   setSelectedReview((prevState) => ({
@@ -30,7 +31,7 @@ const Review = ({ reviewData, reviewIdx }) => {
   return (
     <div>
       <Paper
-        onClick={() => dispatch(toggleReview(reviewData.id))}
+        onClick={expandReview}
         sx={{
           p: 2,
           minWidth: "100%",

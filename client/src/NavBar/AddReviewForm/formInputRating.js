@@ -9,14 +9,15 @@ const FormInputRating = ({ control, name }) => {
         {name}
       </Typography>
       <Controller
-        name={`${name}Input`}
+        name={`${name}`}
         control={control}
-        render={({ field: { onChange, value } }) => (
+        defaultValue={2.5}
+        render={({ field }) => (
           <Rating
+            {...field}
             name={name}
             precision={0.5}
-            value={Number(value) || 0}
-            onChange={onChange}
+            value={Number(field.value)}
           />
         )}
       />

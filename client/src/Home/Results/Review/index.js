@@ -51,7 +51,7 @@ const Review = ({ reviewData, reviewIdx }) => {
             </Typography>
           </Grid>
           <Grid item xs={2}>
-            <Typography variant="h4">{reviewData.rating}</Typography>
+            <Typography variant="h4">{reviewData.overall}</Typography>
           </Grid>
         </Grid>
       </Paper>
@@ -120,9 +120,7 @@ const ReviewModal = forwardRef(({ reviewData }, ref) => {
             </Grid>
             <Grid item xs={6}>
               <Typography variant="h6">Would you stay?:</Typography>
-              <Typography variant="body1">
-                {reviewData.wouldStay ? "Yes" : "No"}
-              </Typography>
+              <Typography variant="body1">{reviewData.wouldStay}</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -137,7 +135,7 @@ const ReviewModal = forwardRef(({ reviewData }, ref) => {
         >
           <Grid item xs={12}>
             <Typography variant="h1" align="center">
-              {reviewData.rating}
+              {reviewData.overall}
             </Typography>
           </Grid>
           <Grid item xs={12}>

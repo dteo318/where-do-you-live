@@ -21,7 +21,7 @@ const FormInputRadio = ({ heading, name, control, options }) => {
         {heading}
       </Typography>
       <Controller
-        name={`${name}Input`}
+        name={`${name}`}
         control={control}
         render={({ field: { onChange, value } }) => (
           <RadioGroup

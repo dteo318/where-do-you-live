@@ -3,10 +3,11 @@ import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Autocomplete } from "@react-google-maps/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLocation } from "../Results/Map/mapSlice";
 
-const SearchBar = ({ isLoaded }) => {
+const SearchBar = () => {
+  const isLoaded = useSelector((state) => state.map.isLoaded);
   const dispatch = useDispatch();
   const [autocomplete, setAutocomplete] = React.useState(null);
 

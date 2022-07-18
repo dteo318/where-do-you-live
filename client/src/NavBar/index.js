@@ -82,7 +82,7 @@ export default function Navbar() {
           justifyContent: "center",
         }}
       >
-        <AddReviewForm />
+        <AddReviewForm closeModal={handleModalClose} />
       </Modal>
     </div>
   );

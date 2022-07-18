@@ -11,9 +11,10 @@ const containerStyle = {
   height: "75vh",
 };
 
-const Map = ({ isLoaded }) => {
+const Map = () => {
   const reviewData = useSelector((state) => state.review.data);
   const center = useSelector((state) => state.map.location);
+  const isLoaded = useSelector((state) => state.map.isLoaded);
   const dispatch = useDispatch();
   const [map, setMap] = React.useState(null);
 

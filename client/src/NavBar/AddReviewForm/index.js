@@ -2,13 +2,16 @@ import { Typography, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { forwardRef } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { forwardRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import FormInputRating from "./formInputRating";
 import FormInputRadio from "./formInputRadio";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import FormInputLocation from "./formInputLocation";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch } from "react-redux";
+import { addReview } from "../../Home/Results/Review/reviewSlice";
 
 // TODO prefill location input based on location in search bar
 
@@ -40,10 +43,19 @@ const AddReviewForm = forwardRef(({ closeModal }, ref) => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const dispatch = useDispatch();
+
   const onSubmit = (data) => {
-    // TODO hook up review adding with redux (need to add coords and ID before dispatch)
-    console.log("DATA");
-    console.log(JSON.stringify(data, null, 2));
+    data["id"] = uuidv4();
+    data["coords"] = {
+      lat: selectedLocation.geometry.location.lat(),
+      lng: selectedLocation.geometry.location.lng(),
+    };
+
+    // Dispatching review to redux store
+    dispatch(addReview(data));
     reset();
     closeModal();
   };
@@ -75,16 +87,16 @@ const AddReviewForm = forwardRef(({ closeModal }, ref) => {
               <Typography variant="h6">Location: </Typography>
             </Grid>
             <Grid item xs={10}>
-              <FormInputLocation control={control} error={errors.location} />
+              <FormInputLocation
+                control={control}
+                error={errors.location}
+                setSelectedLocation={setSelectedLocation}
+              />
             </Grid>
           </Grid>
           <Grid item xs={12} container spacing={4}>
             <Grid item xs={4} sx={{ textAlign: "center" }}>
-              <FormInputRating
-                name="safety"
-                control={control}
-                // error={errors.safety}
-              />
+              <FormInputRating name="safety" control={control} />
             </Grid>
             <Grid item xs={4} sx={{ textAlign: "center" }}>
               <FormInputRating name="transportation" control={control} />

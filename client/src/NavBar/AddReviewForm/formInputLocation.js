@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 import { Autocomplete } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
 
-const FormInputLocation = ({ control, error }) => {
+const FormInputLocation = ({ control, error, setSelectedLocation }) => {
   const isLoaded = useSelector((state) => state.map.isLoaded);
   const [autocomplete, setAutocomplete] = useState(null);
 
@@ -52,6 +52,7 @@ const FormInputLocation = ({ control, error }) => {
             onLoad={onLoad}
             onPlaceChanged={(_, data) => {
               field.onChange(getShortLoc());
+              setSelectedLocation(autocomplete.getPlace());
             }}
             autoHighlight={true}
             {...field}

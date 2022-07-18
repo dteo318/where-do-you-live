@@ -33,7 +33,7 @@ const Review = ({ reviewData, reviewIdx }) => {
       <Paper
         onClick={expandReview}
         sx={{
-          p: 2,
+          padding: (theme) => theme.spacing(1.5, 3.5, 1.5),
           minWidth: "100%",
           margin: "auto",
           backgroundColor: (theme) =>
@@ -43,7 +43,7 @@ const Review = ({ reviewData, reviewIdx }) => {
       >
         <Grid container spacing={2}>
           <Grid item xs={10}>
-            <Typography variant="h5">
+            <Typography variant="h6">
               {reviewIdx} | {reviewData.location}
             </Typography>
             <Typography variant="body2" marginTop="0.5rem">
@@ -51,7 +51,7 @@ const Review = ({ reviewData, reviewIdx }) => {
             </Typography>
           </Grid>
           <Grid item xs={2}>
-            <Typography variant="h4">{reviewData.overall}</Typography>
+            <Typography variant="h5">{reviewData.overall}</Typography>
           </Grid>
         </Grid>
       </Paper>
